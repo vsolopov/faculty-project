@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
-
     @ExceptionHandler(EntityException.class)
     @ResponseBody
     public ResponseEntity<ExceptionView> proxyRestException(EntityException e) {

@@ -18,7 +18,7 @@ public class Student {
     private String surname;
     @Column @NotNull
     private String middleName;
-    @Column(unique = true) @NotNull
+    @Column(unique = true)
     private String numOfTelephone;
     @ManyToOne @JoinColumn
     private Faculty faculty;
