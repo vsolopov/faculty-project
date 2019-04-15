@@ -1,7 +1,7 @@
-package com.hneu.api.service;
+package com.hneu.api.database.service;
 
-import com.hneu.api.dao.FacultyDAO;
-import com.hneu.api.dao.StudentDAO;
+import com.hneu.api.database.dao.FacultyDAO;
+import com.hneu.api.database.dao.StudentDAO;
 import com.hneu.api.exception.EntityExceptionExt.FacultyException;
 import com.hneu.api.exception.EntityExceptionExt.StudentException;
 import com.hneu.api.model.Faculty;

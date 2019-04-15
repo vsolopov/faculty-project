@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.hneu.api.dao")
+@EnableJpaRepositories(basePackages = "com.hneu.api.database.dao")
 @EntityScan(basePackages = "com.hneu.api.model")
 public class FacultyAndStudentsApplication {
 

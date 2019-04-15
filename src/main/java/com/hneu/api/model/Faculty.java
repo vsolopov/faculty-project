@@ -1,5 +1,6 @@
 package com.hneu.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Faculty {
@@ -18,6 +18,7 @@ public class Faculty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(mappedBy = "faculty")
+    @JsonIgnore
     private List<Student> students;
     @Column(unique = true)
     @NotNull

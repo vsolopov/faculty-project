@@ -1,4 +1,4 @@
-package com.hneu.api.dao;
+package com.hneu.api.database.dao;
 
 import com.hneu.api.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;

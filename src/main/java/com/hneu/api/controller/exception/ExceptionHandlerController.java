@@ -26,4 +26,4 @@ public class ExceptionHandlerController {
         response.setException(e.getClass().toString());
         return response;
     }
- }
+}
