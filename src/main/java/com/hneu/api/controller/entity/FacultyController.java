@@ -1,6 +1,5 @@
 package com.hneu.api.controller.entity;
 
-import com.hneu.api.model.Dean;
 import com.hneu.api.model.Faculty;
 import com.hneu.api.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +49,6 @@ public class FacultyController {
         else faculty = service.getByEmail(email);
         if (faculty == null) return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         return new ResponseEntity<>(faculty, HttpStatus.OK);
-    }
-
-    @PostMapping("/getbydean")
-    public ResponseEntity<Faculty> getByDean(@RequestBody Dean dean) {
-        Faculty resultDean = service.getByDean(dean);
-        if (resultDean == null) return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-        return new ResponseEntity<>(resultDean, HttpStatus.OK);
     }
 
     @Autowired

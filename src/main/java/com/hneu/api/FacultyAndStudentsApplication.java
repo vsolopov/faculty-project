@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "com.hneu.api.model")
 public class FacultyAndStudentsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FacultyAndStudentsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FacultyAndStudentsApplication.class, args);
+    }
 
 }

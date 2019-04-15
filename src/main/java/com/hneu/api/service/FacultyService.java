@@ -3,7 +3,6 @@ package com.hneu.api.service;
 import com.hneu.api.dao.FacultyDAO;
 import com.hneu.api.exception.EntityExceptionExt.FacultyException;
 import com.hneu.api.exception.EntityExceptionExt.StudentException;
-import com.hneu.api.model.Dean;
 import com.hneu.api.model.Faculty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,12 +45,6 @@ public class FacultyService {
     public Faculty getByEmail(String email) {
         Faculty faculty = facultyDAO.findByEmail(email);
         if (faculty == null) throw new StudentException("no one faculty by email");
-        return faculty;
-    }
-
-    public Faculty getByDean(Dean dean) {
-        Faculty faculty = facultyDAO.findByDean(dean);
-        if (faculty == null) throw new StudentException("no one faculty by dean");
         return faculty;
     }
 
