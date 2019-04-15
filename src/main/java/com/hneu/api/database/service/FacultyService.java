@@ -17,6 +17,14 @@ public class FacultyService {
     private StudentDAO studentDAO;
 
     public Faculty save(Faculty faculty) {
+        if (faculty.getId() == null) {
+            if (facultyDAO.findByEmail(faculty.getEmail()) != null)
+                throw new FacultyException("faculty email already exist");
+            else if (facultyDAO.findByName(faculty.getName()) != null)
+                throw new FacultyException("faculty name already exist");
+            else if (facultyDAO.findByNumberOfTelephone(faculty.getNumberOfTelephone()) != null)
+                throw new FacultyException("faculty number of telephone already exist");
+        }
         faculty = facultyDAO.save(faculty);
         if (faculty == null) throw new FacultyException("faculty hasn't been added");
         return faculty;
@@ -42,6 +50,11 @@ public class FacultyService {
     public Faculty getByEmail(String email) {
         return facultyDAO.findByEmail(email);
     }
+
+    public Faculty getByNumberOfTelephone(String number) {
+        return facultyDAO.findByNumberOfTelephone(number);
+    }
+
 
     public Faculty getByStudentId(Long studentId) {
         Student student = studentDAO.getOne(studentId);

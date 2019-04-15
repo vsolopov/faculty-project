@@ -17,7 +17,7 @@ public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "faculty")
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Student> students;
     @Column(unique = true)
@@ -26,6 +26,7 @@ public class Faculty {
     @Column(unique = true)
     @NotNull
     private String email;
-    @Column
+    @Column(unique = true)
+    @NotNull
     private String numberOfTelephone;
 }

@@ -29,11 +29,11 @@ public class DataInitializer implements ApplicationRunner {
 
     private void createAndRecordFacultiesAndStudents() {
         Faculty ei = Faculty.builder().name("ei").email("dekei@hneu.edu.ua")
-                .numberOfTelephone("+38(057) 702- 18-31").build();
+                .numberOfTelephone("380577021831").build();
         Faculty ep = Faculty.builder().name("ep").email("dekep@hneu.edu.ua")
-                .numberOfTelephone("+38 (057) 702-05-47").build();
+                .numberOfTelephone("380577020547").build();
         Faculty meo = Faculty.builder().name("meo").email(" dekmeo@ksue.edu.ua")
-                .numberOfTelephone("+38 (057) 702-18-32").build();
+                .numberOfTelephone("380577021832").build();
         facultyDAO.saveAll(Arrays.asList(ei, ep, meo));
 
         List<Student> students = Arrays.asList(

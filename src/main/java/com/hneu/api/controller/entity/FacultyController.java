@@ -50,9 +50,15 @@ public class FacultyController {
         if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(faculty, HttpStatus.OK);
     }
+    @GetMapping(params = "numberOfTelephone")
+    public ResponseEntity getByNumberOfTelephone(@RequestParam String numberOfTelephone) {
+        Faculty faculty = service.getByNumberOfTelephone(numberOfTelephone);
+        if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
+        else return new ResponseEntity<>(faculty, HttpStatus.OK);
+    }
 
     @GetMapping(params = "email")
-    public ResponseEntity getByEmail(@PathVariable String email) {
+    public ResponseEntity getByEmail(@RequestParam String email) {
         Faculty faculty = service.getByEmail(email);
         if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(faculty, HttpStatus.OK);
