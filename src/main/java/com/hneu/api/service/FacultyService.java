@@ -1,9 +1,11 @@
 package com.hneu.api.service;
 
 import com.hneu.api.dao.FacultyDAO;
+import com.hneu.api.dao.StudentDAO;
 import com.hneu.api.exception.EntityExceptionExt.FacultyException;
 import com.hneu.api.exception.EntityExceptionExt.StudentException;
 import com.hneu.api.model.Faculty;
+import com.hneu.api.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,40 +14,44 @@ import java.util.List;
 @Service
 public class FacultyService {
     private FacultyDAO facultyDAO;
+    private StudentDAO studentDAO;
 
     public Faculty save(Faculty faculty) {
-        Faculty resultFaculty = facultyDAO.save(faculty);
-        if (resultFaculty == null) throw new FacultyException("faculty hasn't been added");
-        return resultFaculty;
+        faculty = facultyDAO.save(faculty);
+        if (faculty == null) throw new FacultyException("faculty hasn't been added");
+        return faculty;
     }
 
-    public boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         facultyDAO.deleteById(id);
-        return !facultyDAO.existsById(id);
+        if (facultyDAO.existsById(id)) throw new FacultyException("faculty hasn't been deleted");
     }
 
     public List<Faculty> getAll() {
-        List<Faculty> all = facultyDAO.findAll();
-        if (all == null || all.isEmpty()) throw new FacultyException("no one faculty");
-        return all;
+        return facultyDAO.findAll();
     }
 
     public Faculty getById(Long id) {
-        Faculty faculty = facultyDAO.getOne(id);
-        if (faculty == null) throw new StudentException("no one faculty by id");
-        return faculty;
+        return facultyDAO.getOne(id);
     }
 
     public Faculty getByName(String name) {
-        Faculty faculty = facultyDAO.findByName(name);
-        if (faculty == null) throw new StudentException("no one faculty by name");
-        return faculty;
+        return facultyDAO.findByName(name);
     }
 
     public Faculty getByEmail(String email) {
-        Faculty faculty = facultyDAO.findByEmail(email);
-        if (faculty == null) throw new StudentException("no one faculty by email");
-        return faculty;
+        return facultyDAO.findByEmail(email);
+    }
+
+    public Faculty getByStudentId(Long studentId) {
+        Student student = studentDAO.getOne(studentId);
+        if (student == null) throw new StudentException("student by same id not exists");
+        return student.getFaculty();
+    }
+
+    @Autowired
+    public void setStudentDAO(StudentDAO studentDAO) {
+        this.studentDAO = studentDAO;
     }
 
     @Autowired

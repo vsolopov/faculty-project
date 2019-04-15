@@ -22,10 +22,8 @@ public class StudentController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity deleteById(@RequestParam Long id) {
-        boolean result = service.deleteById(id);
-        if (result) return new ResponseEntity<>(HttpStatus.OK);
-        else return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+    public void deleteById(@RequestParam Long id) {
+        service.deleteById(id);
     }
 
     @GetMapping("/get/all")
@@ -40,10 +38,18 @@ public class StudentController {
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<Student> getByNumOfTelephone(@RequestParam(required = false) String numOfTelephone) {
-        Student student = service.getByNumOfTelephone(numOfTelephone);
+    @GetMapping("/getByNumOfTelephone/{number}")
+    public ResponseEntity getByNumOfTelephone(@PathVariable String number) {
+        Student student = service.getByNumOfTelephone(number);
+        if (student == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(student, HttpStatus.OK);
+    }
+
+    @GetMapping("/getByFacultyId/{facultyId}")
+    public ResponseEntity getByFacultyId(@PathVariable Long facultyId) {
+        List<Student> faculty = service.getByFacultyId(facultyId);
+        if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(faculty, HttpStatus.OK);
     }
 
     @Autowired

@@ -12,20 +12,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionHandlerController {
     @ExceptionHandler(EntityException.class)
     @ResponseBody
-    public ResponseEntity<ExceptionView> proxyRestException(EntityException e) {
+    public ResponseEntity<ExceptionView> handler(EntityException e) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         return new ResponseEntity<>(createExceptionView(e, status), status);
     }
 
     private ExceptionView createExceptionView(Exception e, HttpStatus status) {
         ExceptionView response = new ExceptionView();
-
         response.setTimestamp(System.currentTimeMillis());
         response.setMessage(e.getMessage());
         response.setStatus(status.value());
         response.setError(status.getReasonPhrase());
         response.setException(e.getClass().toString());
-
         return response;
     }
-}
+ }

@@ -7,25 +7,26 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Getter @Setter @Builder
-@ToString @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @NotNull
     private String name;
     @Column
-    @NotNull
     private String surname;
     @Column
-    @NotNull
     private String middleName;
     @Column(unique = true)
+    @NotNull
     private String numOfTelephone;
     @ManyToOne
-    @JoinColumn
     private Faculty faculty;
     @Column
     private String address;

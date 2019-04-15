@@ -16,15 +16,13 @@ public class FacultyController {
 
     @PostMapping("/save")
     public ResponseEntity<Faculty> save(@RequestBody Faculty faculty) {
-        Faculty resultFaculty = service.save(faculty);
-        return new ResponseEntity<>(resultFaculty, HttpStatus.OK);
+        faculty = service.save(faculty);
+        return new ResponseEntity<>(faculty, HttpStatus.OK);
     }
 
     @GetMapping("/delete")
-    public ResponseEntity deleteById(@RequestParam Long id) {
-        boolean result = service.deleteById(id);
-        if (result) return new ResponseEntity<>(HttpStatus.OK);
-        else return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+    public void deleteById(@RequestParam Long id) {
+        service.deleteById(id);
     }
 
     @GetMapping("/get/all")
@@ -39,18 +37,26 @@ public class FacultyController {
         return new ResponseEntity<>(faculty, HttpStatus.OK);
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<Faculty> get(@RequestParam(required = false) String name,
-                                       @RequestParam(required = false) String email) {
-        Faculty faculty;
-        if (name == null && email == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        else if (name != null) faculty = service.getByName(name);
-        else faculty = service.getByEmail(email);
-        if (faculty == null) return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-        return new ResponseEntity<>(faculty, HttpStatus.OK);
+      @GetMapping("/getByName/{name}")
+    public ResponseEntity getByName(@PathVariable String name){
+        Faculty faculty = service.getByName(name);
+        if(faculty==null) return new ResponseEntity(HttpStatus.NO_CONTENT);
+        else return new ResponseEntity<>(faculty,HttpStatus.OK);
+    }
+    @GetMapping("/getByStudentId/{studentId}")
+    public ResponseEntity getStudentId(@PathVariable Long studentId){
+        Faculty faculty = service.getByStudentId(studentId);
+        if(faculty==null) return new ResponseEntity(HttpStatus.NO_CONTENT);
+        else return new ResponseEntity<>(faculty,HttpStatus.OK);
     }
 
+    @GetMapping("/getByEmail/{email}")
+    public ResponseEntity getByEmail(@PathVariable String email){
+        Faculty faculty = service.getByEmail(email);
+        if(faculty==null) return new ResponseEntity(HttpStatus.NO_CONTENT);
+        else return new ResponseEntity<>(faculty, HttpStatus.OK);
+    }
+    
     @Autowired
     public void setService(FacultyService service) {
         this.service = service;

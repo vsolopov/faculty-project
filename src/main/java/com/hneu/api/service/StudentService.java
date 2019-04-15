@@ -1,6 +1,8 @@
 package com.hneu.api.service;
 
+import com.hneu.api.dao.FacultyDAO;
 import com.hneu.api.dao.StudentDAO;
+import com.hneu.api.exception.EntityExceptionExt.FacultyException;
 import com.hneu.api.exception.EntityExceptionExt.StudentException;
 import com.hneu.api.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import java.util.List;
 @Service
 public class StudentService {
     private StudentDAO studentDAO;
+    private FacultyDAO facultyDAO;
 
     public Student save(Student student) {
         Student resultStudent = studentDAO.save(student);
@@ -18,27 +21,31 @@ public class StudentService {
         return resultStudent;
     }
 
-    public boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         studentDAO.deleteById(id);
-        return !studentDAO.existsById(id);
+        if(studentDAO.existsById(id))throw new StudentException("student hasn't been deleted");
     }
 
     public List<Student> getAll() {
-        List<Student> all = studentDAO.findAll();
-        if (all == null || all.isEmpty()) throw new StudentException("no one student");
-        return all;
+        return studentDAO.findAll();
     }
 
     public Student getById(Long id) {
-        Student student = studentDAO.getOne(id);
-        if (student == null) throw new StudentException("no one student by id");
-        return student;
+        return studentDAO.getOne(id);
     }
 
     public Student getByNumOfTelephone(String numOfTelephone) {
-        Student student = studentDAO.findByNumOfTelephone(numOfTelephone);
-        if (student == null) throw new StudentException("no one student by number of telephone");
-        return student;
+        return studentDAO.findByNumOfTelephone(numOfTelephone);
+    }
+
+    public List<Student> getByFacultyId(Long id) {
+        if (!facultyDAO.findById(id).isPresent()) throw new FacultyException("faculty by same id not exist");
+        return studentDAO.findByFacultyId(id);
+    }
+
+    @Autowired
+    public void setFacultyDAO(FacultyDAO facultyDAO) {
+        this.facultyDAO = facultyDAO;
     }
 
     @Autowired
