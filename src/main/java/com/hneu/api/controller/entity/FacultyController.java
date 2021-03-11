@@ -1,8 +1,8 @@
 package com.hneu.api.controller.entity;
 
-import com.hneu.api.database.service.FacultyService;
 import com.hneu.api.model.Faculty;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hneu.api.service.FacultyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/faculty")
+@RequiredArgsConstructor
+@RequestMapping(FacultyController.API)
 public class FacultyController {
-    private FacultyService service;
 
-    @PostMapping("/save")
+    public static final String API = "/api/v1/faculties";
+
+    private final FacultyService service;
+
+
+    @PostMapping
     public ResponseEntity<Faculty> save(@RequestBody Faculty faculty) {
         faculty = service.save(faculty);
         return new ResponseEntity<>(faculty, HttpStatus.OK);
@@ -25,7 +30,7 @@ public class FacultyController {
         service.deleteById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Faculty>> getAll() {
         List<Faculty> all = service.getAll();
         return new ResponseEntity<>(all, HttpStatus.OK);
@@ -38,34 +43,47 @@ public class FacultyController {
     }
 
     @GetMapping(params = "name")
-    public ResponseEntity getByName(@RequestParam String name) {
+    public ResponseEntity<Faculty> getByName(@RequestParam String name) {
         Faculty faculty = service.getByName(name);
-        if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
-        else return new ResponseEntity<>(faculty, HttpStatus.OK);
+
+        if (faculty == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(faculty, HttpStatus.OK);
+        }
     }
 
     @GetMapping(params = "studentId")
-    public ResponseEntity getStudentId(@RequestParam Long studentId) {
+    public ResponseEntity<Faculty> getStudentId(@RequestParam Long studentId) {
         Faculty faculty = service.getByStudentId(studentId);
-        if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
-        else return new ResponseEntity<>(faculty, HttpStatus.OK);
+
+        if (faculty == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(faculty, HttpStatus.OK);
+        }
     }
+
     @GetMapping(params = "numberOfTelephone")
-    public ResponseEntity getByNumberOfTelephone(@RequestParam String numberOfTelephone) {
+    public ResponseEntity<Faculty> getByNumberOfTelephone(@RequestParam String numberOfTelephone) {
         Faculty faculty = service.getByNumberOfTelephone(numberOfTelephone);
-        if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
-        else return new ResponseEntity<>(faculty, HttpStatus.OK);
+
+        if (faculty == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(faculty, HttpStatus.OK);
+        }
     }
 
     @GetMapping(params = "email")
-    public ResponseEntity getByEmail(@RequestParam String email) {
+    public ResponseEntity<Faculty> getByEmail(@RequestParam String email) {
         Faculty faculty = service.getByEmail(email);
-        if (faculty == null) return new ResponseEntity(HttpStatus.NO_CONTENT);
-        else return new ResponseEntity<>(faculty, HttpStatus.OK);
+
+        if (faculty == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(faculty, HttpStatus.OK);
+        }
     }
 
-    @Autowired
-    public void setService(FacultyService service) {
-        this.service = service;
-    }
 }

@@ -1,4 +1,10 @@
 # faculty-project
-Simple "Faculty" one-to-many project for students. 
+Simple "Faculty" one-to-many project for java students.
 
-Used technologies: Spring Boot, Spring Data(JPA), Lombock, H2 Database
+> Used technologies:
+>   * Spring Boot
+>   * Spring Data(JPA)
+>   * Lombok
+>   * H2 Database
+
+***Author:*** Solopov Vladyslav
