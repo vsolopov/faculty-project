@@ -1,5 +1,5 @@
 # faculty-project
-Simple "Faculty" one-to-many project for java students.
+Simple "Faculty" one-to-many project-example for java students.
 
 > Used technologies:
 >   * Spring Boot
